@@ -1,10 +1,12 @@
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MagnifyingGlass } from 'phosphor-react'
+import { useContextSelector } from 'use-context-selector'
 
+import { memo } from 'react'
 import { useForm } from 'react-hook-form'
 import { SearchFormContainer } from './styles'
-import { useTransactions } from '../../../../contexts/TransactionsContext'
+import { TransactionsContext } from '../../../../contexts/TransactionsContext'
 
 const SearchFormSchema = zod.object({
   query: zod.string(),
@@ -12,8 +14,13 @@ const SearchFormSchema = zod.object({
 
 type SearchFormInputs = zod.infer<typeof SearchFormSchema>
 
-export function SearchForm() {
-  const { fetchTransactions } = useTransactions()
+function SearchFormComponent() {
+  const fetchTransactions = useContextSelector(
+    TransactionsContext,
+    (context) => {
+      return context.fetchTransactions
+    },
+  )
 
   const {
     register,
@@ -42,3 +49,10 @@ export function SearchForm() {
     </SearchFormContainer>
   )
 }
+
+export const SearchForm = memo(SearchFormComponent)
+
+/**
+ * Utilizar o "memo" apenas quando o HTML retornado sem grande e complexo:
+ * Pois ele executa o deep comparison, e isso é mais lento do que a renderização comum do react
+ */
