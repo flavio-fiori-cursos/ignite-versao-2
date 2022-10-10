@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import Head from 'next/head'
 import type { GetStaticProps, NextPage } from 'next'
 import Image from 'next/future/image'
 import { useKeenSlider } from 'keen-slider/react'
@@ -13,7 +15,7 @@ interface HomeProps {
     id: string;
     name: string;
     imageUrl: string;
-    price: number
+    price: string;
   }[]
 }
 
@@ -26,19 +28,27 @@ const Home: NextPage<HomeProps> = ({ products }) => {
   })
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {
-        products.map(product => (
-          <Product key={product.id} className="keen-slider__slide">
-            <Image src={product.imageUrl} width={520} height={480} alt="" />
-            <footer>
-              <strong>{product.name}</strong>
-              <span>{product.price}</span>
-            </footer>
-          </Product>
-        ))
-      }
-    </HomeContainer>
+    <>
+      <Head>
+        <title>Home | Ignite Shop</title>
+      </Head>
+
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {
+          products.map(product => (
+            <Link href={`/product/${product.id}`} key={product.id}>
+              <Product className="keen-slider__slide">
+                <Image src={product.imageUrl} width={520} height={480} alt="" />
+                <footer>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </footer>
+              </Product>
+            </Link>
+          ))
+        }
+      </HomeContainer>
+    </>
   )
 }
 
