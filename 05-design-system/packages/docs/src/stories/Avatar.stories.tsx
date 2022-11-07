@@ -5,6 +5,13 @@ import { Avatar, AvatarProps } from '@ignite-ui/react'
 export default {
   title: 'Data display/Avatar',
   component: Avatar,
+  argTypes: {
+    src: {
+      control: {
+        type: 'text',
+      },
+    },
+  },
   args: {
     src: 'https://github.com/flaviofiori.png',
     alt: 'Flávio Fiori',
