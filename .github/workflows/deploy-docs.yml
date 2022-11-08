@@ -3,7 +3,7 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - main
+      - 'feature/05-ignite-call'
 
 jobs: 
   build-and-deploy:
@@ -15,14 +15,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16        
       
-      - run: npm ci
+      - name: Setup npm
+        working-directory: ./05-design-system/packages/docs
+        run: npm ci
 
-      - run: npm run build
+      - name: Build
+        working-directory: ./05-design-system/packages/docs
+        run: npm run build        
 
       - name: Deploy Storybook
-        working-directory: ./packages/docs
+        working-directory: ./05-design-system/packages/docs
         run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
         env: 
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
