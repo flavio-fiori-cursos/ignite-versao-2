@@ -15,15 +15,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16        
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: './05-design-system/**/package-lock.json'       
       
       - name: Setup npm
-        working-directory: ./05-design-system/packages/docs
+        working-directory: ./05-design-system
         run: npm ci
 
       - name: Build
-        working-directory: ./05-design-system/packages/docs
-        run: npm run build        
+        working-directory: ./05-design-system
+        run: npm run build
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}  
 
       - name: Deploy Storybook
         working-directory: ./05-design-system/packages/docs
