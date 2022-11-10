@@ -1,0 +1,2 @@
+import{A as t}from"./index.48738cca.js";import"./index.24e623b3.js";import"./iframe.45013b1f.js";import"./index.b259c0fd.js";import"./jsx-runtime.e4441ce4.js";const p={title:"Data display/Avatar",component:t,argTypes:{src:{control:{type:"text"}}},args:{src:"https://github.com/flaviofiori.png",alt:"Fl\xE1vio Fiori"}},c={},l={args:{src:void 0}},m=["Primary","WithFallback"];export{c as Primary,l as WithFallback,m as __namedExportsOrder,p as default};
+//# sourceMappingURL=Avatar.stories.878b6714.js.map
