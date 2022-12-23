@@ -1,0 +1,37 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - 'feature/05-ignite-call'
+
+jobs: 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: './05-design-system/**/package-lock.json'       
+      
+      - name: Setup npm
+        working-directory: ./05-design-system
+        run: npm ci
+
+      - name: Build
+        working-directory: ./05-design-system
+        run: npm run build
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}  
+
+      - name: Deploy Storybook
+        working-directory: ./05-design-system/packages/docs
+        run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
+        env: 
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
