@@ -18,6 +18,10 @@ export default function Register() {
     await signIn('google')
   }
 
+  async function handleNavigateToNextSptep() {
+    await router.push('/register/time-intervals')
+  }
+
   return (
     <Container>
       <Header>
@@ -56,7 +60,11 @@ export default function Register() {
           </AuthError>
         )}
 
-        <Button type="submit" disabled={!isSignedIn}>
+        <Button
+          type="submit"
+          disabled={!isSignedIn}
+          onClick={handleNavigateToNextSptep}
+        >
           Próximo passo
           <ArrowRight />
         </Button>
