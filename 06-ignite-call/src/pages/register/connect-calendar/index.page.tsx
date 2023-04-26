@@ -11,7 +11,6 @@ export default function Register() {
   const hasAuthError = !!router.query.error
 
   const session = useSession()
-  console.log(session)
   const isSignedIn = session.status === 'authenticated'
 
   async function handleConnectCalendar() {
