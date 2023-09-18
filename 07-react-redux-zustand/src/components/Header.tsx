@@ -1,11 +1,12 @@
-import { useCourseLoading } from "../hook/useCourseLoading"
 import { useCurrentLesson } from "../hook/useCurrentLesson"
+import { useStore } from "../zustand-store"
 
 export function Header() {
   const { currentModule, currentLesson } = useCurrentLesson()
-  const isCourseLoading = useCourseLoading()
 
-  if(isCourseLoading) {
+  const { isLoading } = useStore()
+
+  if(isLoading) {
     return(
       <h1 className="text-2xl font-bold text-white">Carregando...</h1>
     )

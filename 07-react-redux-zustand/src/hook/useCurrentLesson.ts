@@ -1,11 +1,11 @@
-import { useAppSelector } from "../store"
+import { useStore } from "../zustand-store"
 
 export const useCurrentLesson = () => {
-  return useAppSelector(state => {
-    const { currentModuleIndex, currentLessonIndex } = state.player
+  return useStore(store => {
+    const { currentModuleIndex, currentLessonIndex } = store
 
-    const currentModule = state.player.course?.modules[currentModuleIndex]
-    const currentLesson = state.player.course?.modules[currentModuleIndex].lessons[currentLessonIndex]
+    const currentModule = store.course?.modules[currentModuleIndex]
+    const currentLesson = store.course?.modules[currentModuleIndex].lessons[currentLessonIndex]
 
     return { currentModule, currentLesson }
   })
